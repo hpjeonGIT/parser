@@ -65,8 +65,27 @@ Found a string: text
 Found a string: comment
 Found a string: here
 ```
-- read_dat
+- ignorecomment
     - c++ code + flex + bison
+    - If sharp (#) is found in the line, the following tokens are ignored until a new line
     - `make`
-    - `./just_read`
-
+    - `./just_parse`
+```    
+Bison found an int: 90
+Bison found a float: 1.234
+Bison found a float: 23.4
+ignore iamcomment
+Bison found an int: 4
+Bison found an int: 5
+Bison found an int: 6
+ignore iamcomment
+Bison found a string: this
+Bison found a string: is
+Bison found a string: text
+ignore iamcomment
+Bison found an int: 111
+ignore iamcomment
+Bison found an int: 123
+ignore iamcomment
+ignore 456
+```
