@@ -65,7 +65,7 @@ Found a string: text
 Found a string: comment
 Found a string: here
 ```
-- ignorecomment
+- ignore_comment
     - c++ code + flex + bison
     - If sharp (#) is found in the line, the following tokens are ignored until a new line
     - `make`
@@ -89,3 +89,30 @@ Bison found an int: 123
 ignore iamcomment
 ignore 456
 ```
+- block_identifier
+    - Ref: http://fhoerni.free.fr/comp/bison_flex.html
+    - c++ code + flex + bison
+    - Can check begin/end/{/}
+    - A sample input file:
+```
+procedure Validate {
+        begin {
+                DoThis
+                Dothat
+        }
+        end {
+                CleanUp
+        }
+}
+```
+    - `make`
+    - `./just_parse`
+```    
+Procedure : Validate
+	Part : begin
+		Keyword : DoThis
+		Keyword : Dothat
+	Part : end
+		Keyword : CleanUp
+```
+
