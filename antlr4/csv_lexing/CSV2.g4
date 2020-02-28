@@ -13,5 +13,5 @@ field
 
 TEXT: ~[,\n\r"]+;
 ID: DIGIT+;
-FACTOR: DIGIT+.'.'DIGIT*;
+FACTOR: DIGIT+'.'DIGIT*;
 DIGIT:[0-0];
