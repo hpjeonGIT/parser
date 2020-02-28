@@ -1,4 +1,4 @@
-Name, occupation, id
-kim, scientist, 0123
-jane, engineer , 494
-Shery, secretary , 102
+Name, occupation, id, factor
+kim, scientist, 0123 , 0.5
+jane, engineer , 494, 0.12
+Shery, secretary , 102, 0.35
