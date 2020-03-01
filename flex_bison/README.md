@@ -115,4 +115,29 @@ Procedure : Validate
 	Part : end
 		Keyword : CleanUp
 ```
-
+- parse_input
+    - Will read `input.dat`
+    - Any comments which begin with `#` will be ignored
+    - Data tokens/values within `sim_start` and `sim_end` are parsed
+```
+# Some comment here
+sim_start
+   time_step = 1.0   # unit would be sec
+    # distance_x = 11.3 # this will not be parsed
+    distance_x = 10.0 # description of distance
+    # Some comment here
+    E = 200.e9 # comment - elastic modules
+sim_end
+# Last comment here
+```
+    - `distance_x` will be parsed as 10.0, not 11.3
+    - `make`
+        - Note that <vector> and <string> are injected into parser.tab.h in the Make process in order to use STL
+    - `juse_parse`
+```
+-
+time_step= 1
+distance_x= 10
+E= 2e+11
+```
+    - Not sure at this moment why `-` is printed in the first line

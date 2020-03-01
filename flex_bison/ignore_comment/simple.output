@@ -1,0 +1,125 @@
+State 1 conflicts: 1 shift/reduce
+State 3 conflicts: 5 shift/reduce
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: %empty
+    2      | input exp
+
+    3 exp: %empty
+    4    | exp INT
+    5    | exp FLOAT
+    6    | exp STRING
+    7    | exp TOK_COMMENT
+    8    | exp TOK_NEWLINE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+TOK_COMMENT (258) 7
+TOK_NEWLINE (259) 8
+INT (260) 4
+FLOAT (261) 5
+STRING (262) 6
+
+
+Nonterminals, with rules where they appear
+
+$accept (8)
+    on left: 0
+input (9)
+    on left: 1 2, on right: 0 2
+exp (10)
+    on left: 3 4 5 6 7 8, on right: 2 4 5 6 7 8
+
+
+State 0
+
+    0 $accept: . input $end
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+State 1
+
+    0 $accept: input . $end
+    2 input: input . exp
+
+    $end  shift, and go to state 2
+
+    $end      [reduce using rule 3 (exp)]
+    $default  reduce using rule 3 (exp)
+
+    exp  go to state 3
+
+
+State 2
+
+    0 $accept: input $end .
+
+    $default  accept
+
+
+State 3
+
+    2 input: input exp .
+    4 exp: exp . INT
+    5    | exp . FLOAT
+    6    | exp . STRING
+    7    | exp . TOK_COMMENT
+    8    | exp . TOK_NEWLINE
+
+    TOK_COMMENT  shift, and go to state 4
+    TOK_NEWLINE  shift, and go to state 5
+    INT          shift, and go to state 6
+    FLOAT        shift, and go to state 7
+    STRING       shift, and go to state 8
+
+    TOK_COMMENT  [reduce using rule 2 (input)]
+    TOK_NEWLINE  [reduce using rule 2 (input)]
+    INT          [reduce using rule 2 (input)]
+    FLOAT        [reduce using rule 2 (input)]
+    STRING       [reduce using rule 2 (input)]
+    $default     reduce using rule 2 (input)
+
+
+State 4
+
+    7 exp: exp TOK_COMMENT .
+
+    $default  reduce using rule 7 (exp)
+
+
+State 5
+
+    8 exp: exp TOK_NEWLINE .
+
+    $default  reduce using rule 8 (exp)
+
+
+State 6
+
+    4 exp: exp INT .
+
+    $default  reduce using rule 4 (exp)
+
+
+State 7
+
+    5 exp: exp FLOAT .
+
+    $default  reduce using rule 5 (exp)
+
+
+State 8
+
+    6 exp: exp STRING .
+
+    $default  reduce using rule 6 (exp)

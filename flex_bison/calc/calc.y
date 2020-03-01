@@ -18,7 +18,7 @@ program:
     ;
 
 statement:
-    expr                  { printf("resut= %d\n", $1); }
+    expr                  { printf("result= %d\n", $1); }
     | VARIABLE '=' expr   { sym[$1] = $3; }
     ;
 
