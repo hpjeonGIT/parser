@@ -133,7 +133,7 @@
 	- `distance_x` will be parsed as 10.0, not 11.3
 	- `make`
 		- Note that <vector> and <string> are injected into parser.tab.h in the Make process in order to use STL
-	- `juse_parse`
+	- `./just_parse`
 	```
 	-
 	time_step= 1
