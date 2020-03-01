@@ -1,6 +1,7 @@
-Ref: https://stackoverflow.com/questions/5975741/what-is-the-difference-between-ll-and-lr-parsing
-Ref: https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/
-Ref: https://www.joinc.co.kr/w/Site/Development/Env/Yacc
+## References
+- https://stackoverflow.com/questions/5975741/what-is-the-difference-between-ll-and-lr-parsing
+- https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/
+- https://www.joinc.co.kr/w/Site/Development/Env/Yacc
 
 ## Hierarchy or steps
 - Lexical analysis (lex, flex, ...)
@@ -21,7 +22,7 @@ Ref: https://www.joinc.co.kr/w/Site/Development/Env/Yacc
 
 ## Parsing
 - TOP Down (LL)
-    - Begins with just the start symbo
+    - Begins with just the start symbol
     - Need to guess
 - Bottom-up (LR)
 
