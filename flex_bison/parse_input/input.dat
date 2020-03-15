@@ -1,10 +1,15 @@
 # Some comment here
 sim_start
-   time_step = 1.0   # unit would be sec
+   time_step = 1.2   # 337 unit would be sec
    # distance_x = 11.3 # this will not be parsed
-   distance_x = 10.0 # description of distance
-   # Some comment here
-   E = 200.e9 # comment - elastic modules
+   distancex = 13.1 # description of distance
+   // Some comment here
+   E_11 = 200.e9 # comment  4121 elastic modules
+  nu_23 = 0.3 # double comment
+   //
+   rho = 7.7e3
+   #  gravity
+  90g = 4.1
 sim_end
 
-# Last comment here
+# Last comment   here

@@ -1,11 +1,10 @@
 // REF: http://fhoerni.free.fr/comp/bison_flex.html
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
+#include <cstdio>
 extern FILE *yyin, *yyout; // used implicitly?
 extern int yylex();
-extern void yyparse(std::vector<std::string> &tokens,std::vector<double> &values);
+void yyparse(char **tokens, double *values, int &ncount);
 
 int main(int, char**) {
     // open a file handle to a particular file:
@@ -17,13 +16,20 @@ int main(int, char**) {
     }
     // set lex to read from it instead of defaulting to STDIN:
     yyin = myfile;
-    std::vector<std::string> tokens;
-    std::vector<double> values;
-    yyparse(tokens, values);
+    char **tokens;
+    tokens = (char **) malloc(10*sizeof(char*));
+    for (int i =0; i<10; i++)
+        tokens[i] = (char *) malloc(25*sizeof(char*));
+    double values[10];
+    int ncount;
+    yyparse(tokens, values, ncount);
     //
-   std::cout << std::endl;
-    for (int i = 0;i<values.size(); i++) {
-        std::cout << tokens[i] << "= " <<values[i] <<std::endl;
+    for (int i=0;i<ncount;i++) {
+        printf("%s = %f \n",tokens[i], values[i]);
     }
+    for (int i =0; i<10; i++) {
+        free(tokens[i]);
+    }
+    free(tokens);
     return 0;  
 }
