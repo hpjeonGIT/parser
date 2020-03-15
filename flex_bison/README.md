@@ -141,3 +141,18 @@
 	E= 2e+11
 	```
     - Not sure at this moment why `-` is printed in the first line
+    - Using STL - push_back() into values caused memory corruption?
+    - Adjusted using C array of string, removing all STL
+    ```
+    $ make
+    flex parser.l
+    bison -d parser.y
+    g++ -g -std=c++14 -o just_parse main.cpp lex.yy.c  parser.tab.c -lfl
+    $ ./just_parse 
+    time_step = 1.200000 
+    distancexx = 13.100000 
+    E_11 = 200000000000.000000 
+    nu_23 = 0.300000 
+    rho = 7700.000000 
+    90g = 4.100000 
+    ```    
