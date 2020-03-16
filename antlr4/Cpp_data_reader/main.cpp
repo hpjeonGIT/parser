@@ -13,13 +13,20 @@ int main(int argc, const char* argv[]) {
   antlr4::CommonTokenStream tokens(&lexer);
   tokens.fill();
   for (auto token : tokens.getTokens()) {
-    std::cout << token->toString() << std::endl;
+    std::cout << "tokens=" <<  token->toString() << std::endl;
   }
     
   CUSTOMParser parser(&tokens);
-  antlr4::tree::ParseTree *tree = parser.row();
+  antlr4::tree::ParseTree *tree = parser.file();
+  std::cout << "Parser = " << tree->toStringTree(&parser) 
+            << std::endl;
   CUSTOMBaseListener listener;
-  //antlr4::tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
-  std::cout << tree->toStringTree(&parser) << std::endl;
+  antlr4::tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
+
+/*
+  for (auto row : listener.rows()) {
+    std::cout << row->toString() << std::endl;
+  }
+*/
   return 0;
 }

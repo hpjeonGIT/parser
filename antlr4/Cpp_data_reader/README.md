@@ -14,3 +14,30 @@
 [@8,65:64='<EOF>',<-1>,5:0]
 (row (field time_step = 1.0) \n)
 ```
+- Ref: https://riptutorial.com/Download/antlr.pdf
+- Ref: http://ati.ttu.ee/~kjans/antlr/introduction_to_antlr4_presentation.pdf
+- Ref: https://github.com/77027subbu/Antlr-JSON-CSV/blob/master/CSV/LoadCSV.java
+
+- Basically  `antlr4::tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);` does nothing as the generated CUSTOMBaseListener.h has nothing
+```
+ virtual void enterFile(CUSTOMParser::FileContext * /*ctx*/) override { }
+```
+- Edit such as:
+```
+ virtual void enterFile(CUSTOMParser::FileContext * /*ctx*/) override { 
+    std::cout << "jeonb entering file " << std::endl;     }
+```
+- Then recompile (without generating. Run make), and re-run. Then you can see how walk() works.
+
+
+## Comparsion to java code
+```java
+ExprParser parser = new ExprParser(tokens);
+ParseTree tree = parser.file(); 
+System.out.println(tree.toStringTree(parser));
+```
+```C++
+CUSTOMParser parser(&tokens);
+antlr4::tree::ParseTree *tree = parser.file();
+std::cout << "Parser = " << tree->toStringTree(&parser)<< std::endl;
+```
