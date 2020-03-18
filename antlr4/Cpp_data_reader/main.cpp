@@ -10,9 +10,24 @@
 class Loader : public CUSTOMBaseListener {
 public:
   std::vector<std::string> rows;
-  virtual void exitField(CUSTOMParser::FieldContext *ctx) override { rows.push_back(ctx->TEXT()->getText());}
-
+  virtual void exitField(CUSTOMParser::FieldContext *ctx) override { 
+    rows.push_back(ctx->TEXT()->getText());
+  }
 };
+
+/*
+-- using gdb:
+(gdb) ptype ctx
+type = class CUSTOMParser::FieldContext : public antlr4::ParserRuleContext {
+  public:
+    FieldContext(antlr4::ParserRuleContext *, size_t);
+    virtual size_t getRuleIndex(void) const;
+    antlr4::tree::TerminalNode * TEXT(void);
+    antlr4::tree::TerminalNode * VALUE(void);
+    virtual void enterRule(antlr4::tree::ParseTreeListener *);
+    virtual void exitRule(antlr4::tree::ParseTreeListener *);
+} *
+*/
 
 
 int main(int argc, const char* argv[]) {
