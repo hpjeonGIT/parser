@@ -1,4 +1,11 @@
+# header
+
 time_step = 1.0
 size_x = 1000.
-size_y = 1235.30
+/*
+** size_x = 123.
+*/
+size_y = 1235.30 //another header
+ // header here
 size_z = 1.376e5
+// bottome header
