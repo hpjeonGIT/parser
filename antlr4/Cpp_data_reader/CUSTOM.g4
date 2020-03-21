@@ -4,19 +4,14 @@ file: hdr row+ ;
 hdr: row;
 
 //row: field('='field)* '\r'? '\n' ;
-row: TEXT+WS* '='+ WS* VALUE '\r'? '\n' 
-| TEXT+WS* '='+ WS* VALUE SHARP_COMMENT
-| TEXT+WS* '='+ WS* VALUE LINE_COMMENT
+row: TEXT+WS* ASSIGN+ WS* VALUE '\r'? '\n' 
+| TEXT+WS* ASSIGN+ WS* VALUE SHARP_COMMENT
+| TEXT+WS* ASSIGN+ WS* VALUE LINE_COMMENT
 | SHARP_COMMENT
 | COMMENT+ANY* '\n'
 | LINE_COMMENT
 | '\n'
 ;
-
-field
-: TEXT
-;
-
 
 
 VALUE
@@ -31,6 +26,7 @@ MIN: '-';
 fragment INT :   '0' | [1-9] [0-9]* ; // no leading zeros
 fragment EXP :   [Ee] [+\-]? INT ; // \- since - means "range" inside [...]
 
+ASSIGN: [=:] ;
 WS: [ \t]+ -> skip ;
 ANY: ~[\r\n] ;
 COMMENT: '/*' .*? '*/'  -> skip ;

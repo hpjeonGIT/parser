@@ -9,21 +9,36 @@
 
 class Loader : public CUSTOMBaseListener {
 public:
-  std::vector<std::string> rows;
-  virtual void exitField(CUSTOMParser::FieldContext *ctx) override { 
-    rows.push_back(ctx->TEXT()->getText());
+  std::vector<std::string> texts, values;
+  virtual void exitRow(CUSTOMParser::RowContext *ctx) override {
+      auto t = ctx->TEXT();
+      if (t.size() > 0) {
+          texts.push_back(t[0]->getText());
+      }
+      auto v = ctx->VALUE();
+      if (v) values.push_back(v->getText());
   }
+
 };
 
 /*
--- using gdb:
 (gdb) ptype ctx
-type = class CUSTOMParser::FieldContext : public antlr4::ParserRuleContext {
+type = class CUSTOMParser::RowContext : public antlr4::ParserRuleContext {
   public:
-    FieldContext(antlr4::ParserRuleContext *, size_t);
+    RowContext(antlr4::ParserRuleContext *, size_t);
     virtual size_t getRuleIndex(void) const;
-    antlr4::tree::TerminalNode * TEXT(void);
     antlr4::tree::TerminalNode * VALUE(void);
+Python Exception <class 'gdb.error'> No type named antlr4::tree::TerminalNode*.:
+    std::vector<antlr4::tree::TerminalNode*, std::allocator<antlr4::tree::TerminalNode*> > TEXT(void);
+    antlr4::tree::TerminalNode * TEXT(size_t);
+    std::vector<antlr4::tree::TerminalNode*, std::allocator<antlr4::tree::TerminalNode*> > WS(void);
+    antlr4::tree::TerminalNode * WS(size_t);
+    antlr4::tree::TerminalNode * SHARP_COMMENT(void);
+    antlr4::tree::TerminalNode * LINE_COMMENT(void);
+    std::vector<antlr4::tree::TerminalNode*, std::allocator<antlr4::tree::TerminalNode*> > COMMENT(void);
+    antlr4::tree::TerminalNode * COMMENT(size_t);
+    std::vector<antlr4::tree::TerminalNode*, std::allocator<antlr4::tree::TerminalNode*> > ANY(void);
+    antlr4::tree::TerminalNode * ANY(size_t);
     virtual void enterRule(antlr4::tree::ParseTreeListener *);
     virtual void exitRule(antlr4::tree::ParseTreeListener *);
 } *
@@ -50,9 +65,13 @@ int main(int argc, const char* argv[]) {
   Loader loader;
   //antlr4::tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
   antlr4::tree::ParseTreeWalker::DEFAULT.walk(&loader, tree);
-
-   for (auto row : loader.rows) {
-       std::cout << row << std::endl;
+  if (loader.texts.size() != loader.values.size()) {
+      std::cout << "Something is wrong. Parsing pair not matching\n";
+      throw;
+  }
+  std::cout << "\n\n## Final results of parsing:\n";
+  for (size_t i=0; i < loader.texts.size(); i++) {
+      std::cout << loader.texts[i] << " = " << loader.values[i] << std::endl;
   }
   return 0;
 }

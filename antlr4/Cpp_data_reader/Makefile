@@ -1,6 +1,6 @@
 .SUFFIXES: .o .cpp
 CXX = g++
-FLAGS = -std=c++14
+FLAGS = -g -std=c++14
 LIB = -L/home/hpjeon/sw_local/antlr4/lib -lantlr4-runtime
 INC = -I/home/hpjeon/sw_local/antlr4/include/antlr4-runtime/
 TAR = a.exe
